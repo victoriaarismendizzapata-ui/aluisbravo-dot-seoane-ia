@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#061329">
+  <meta name="description" content="SeoaIA, asistente educativo del IESTP Manuel Seoane Corrales.">
+  <title>SeoaIA | Instituto Manuel Seoane Corrales</title>
+  <style>
+    :root{--navy:#061329;--blue:#087cf0;--cyan:#10b9e8;--ink:#152238;--muted:#617087;--line:#dbe5ef;--paper:#f4f8fc}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+    header{background:var(--navy);color:white;padding:22px max(5vw,20px);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .brand{font-size:1.4rem;font-weight:800;letter-spacing:.02em}.brand span{color:var(--cyan)}header small{color:#c6d6e8}
+    main{max-width:1050px;margin:36px auto;padding:0 20px}.hero{background:linear-gradient(120deg,var(--navy),#0b3e78);color:white;border-radius:22px;padding:clamp(28px,5vw,56px);box-shadow:0 14px 40px #06132920}
+    h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.08;margin:0 0 14px}.hero p{max-width:680px;color:#e0efff}.tag{display:inline-block;background:#10b9e82b;color:#a7f0ff;border:1px solid #10b9e8;padding:5px 10px;border-radius:20px;font-size:.85rem;margin-bottom:16px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:24px 0}.card{background:white;border:1px solid var(--line);border-radius:16px;padding:20px}.card h2{font-size:1.05rem;margin:0 0 8px}.card p{margin:0;color:var(--muted);font-size:.94rem}
+    .chat{background:white;border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:28px 0}.chat-head{padding:18px 20px;background:#eaf6ff;border-bottom:1px solid var(--line)}.chat-head h2{margin:0}.chat-head p{margin:4px 0 0;color:var(--muted);font-size:.92rem}
+    #messages{padding:20px;min-height:130px;max-height:380px;overflow:auto}.bubble{padding:12px 14px;border-radius:12px;background:#edf3f9;margin:8px 0;white-space:pre-wrap;overflow-wrap:anywhere}.bubble.user{background:#e2f5ff;margin-left:10%}.bubble.error{background:#fff0f0;color:#8c2525}
+    form{display:flex;gap:10px;padding:16px;border-top:1px solid var(--line)}textarea{resize:vertical;min-height:48px;max-height:140px;flex:1;border:1px solid #c8d5e4;border-radius:10px;padding:12px;font:inherit}button{border:0;background:var(--blue);color:white;border-radius:10px;padding:12px 18px;font:inherit;font-weight:700;cursor:pointer}button:disabled{opacity:.55;cursor:wait}
+    footer{text-align:center;color:var(--muted);padding:25px;font-size:.9rem}a{color:var(--blue)}@media(max-width:540px){form{flex-direction:column}button{width:100%}}
+  </style>
+</head>
+<body>
+  <header><div class="brand">Seoa<span>IA</span></div><small>Asistente educativo · IESTP Manuel Seoane Corrales</small></header>
+  <main>
+    <section class="hero"><span class="tag">Plataforma educativa en desarrollo</span><h1>Tu instituto, más cerca.</h1><p>Consulta información general y utiliza el asistente SeoaIA para resolver dudas. Las respuestas generadas por IA requieren que el administrador configure una clave segura en el servidor.</p></section>
+    <section class="grid" aria-label="Áreas de orientación">
+      <article class="card"><h2>Desarrollo de Sistemas de Información</h2><p>Programación, bases de datos, redes y desarrollo de software.</p></article>
+      <article class="card"><h2>Enfermería Técnica</h2><p>Orientación sobre la carrera y su formación profesional.</p></article>
+      <article class="card"><h2>Contabilidad</h2><p>Información general sobre la formación contable.</p></article>
+      <article class="card"><h2>Electricidad Industrial</h2><p>Orientación sobre instalaciones y sistemas eléctricos.</p></article>
+      <article class="card"><h2>Mecatrónica Automotriz</h2><p>Formación relacionada con sistemas y diagnóstico automotriz.</p></article>
+      <article class="card"><h2>Mecánica de Producción Industrial</h2><p>Procesos de fabricación, mecanizado y producción.</p></article>
+      <article class="card"><h2>Química Industrial</h2><p>Procesos químicos, laboratorio y control industrial.</p></article>
+    </section>
+    <section class="chat" aria-label="Asistente SeoaIA">
+      <div class="chat-head"><h2>Habla con SeoaIA</h2><p>No compartas contraseñas, datos médicos ni información privada.</p></div>
+      <div id="messages" aria-live="polite"><div class="bubble">Hola. Soy SeoaIA. Puedo ayudarte con preguntas generales y académicas. Para responder con IA, el servicio debe tener una clave configurada.</div></div>
+      <form id="chatForm"><textarea id="question" maxlength="4000" placeholder="Escribe tu consulta..." required></textarea><button id="send" type="submit">Enviar</button></form>
+    </section>
+    <p>Consulta también el <a href="https://seoane.edu.pe/" target="_blank" rel="noopener noreferrer">portal oficial del instituto</a> para confirmar avisos, trámites y datos vigentes.</p>
+  </main>
+  <footer>SeoaIA · Proyecto educativo independiente. Verifica la información institucional en fuentes oficiales.</footer>
+  <script>
+    const form=document.querySelector("#chatForm"), input=document.querySelector("#question"), messages=document.querySelector("#messages"), button=document.querySelector("#send");
+    function add(text,role=""){const el=document.createElement("div");el.className="bubble "+role;el.textContent=text;messages.appendChild(el);messages.scrollTop=messages.scrollHeight;return el}
+    form.addEventListener("submit",async e=>{e.preventDefault();const text=input.value.trim();if(!text)return;add(text,"user");input.value="";button.disabled=true;const wait=add("Consultando...");try{const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:[{role:"user",content:text}]})});const d=await r.json();wait.remove();add(d.reply||d.error||"No hubo respuesta.",r.ok?"":"error")}catch{wait.remove();add("No se pudo conectar con el servidor.","error")}finally{button.disabled=false;input.focus()}});
+  </script>
+</body>
+</html>
